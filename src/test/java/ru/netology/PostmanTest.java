@@ -1,71 +1,39 @@
-package ru.netology.rest;
+package ru.netology;
 
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 
-class MobileBankApiTestV1 {
+class PostmanTest {
     @Test
-    void shouldReturnDemoAccounts() {
+    void someDataTest(){
         // Given - When - Then
-        // Предусловия
+// Предусловия
         given()
-                .baseUri("http://localhost:9999/api/v1")
-                // Выполняемые действия
+                .baseUri("https://postman-echo.com")
+                .body("some data") // отправляемые данные (заголовки и query можно выставлять аналогично)
+// Выполняемые действия
                 .when()
-                .get("/demo/accounts")
-                // Проверки
-                .then()
-                .statusCode(200);
-    }
-
-    @Test
-    void shemaJsonTest() {
-        given()
-                .baseUri("http://localhost:9999/api/v1")
-                .when()
-                .get("/demo/accounts")
+                .post("/post")
+// Проверки
                 .then()
                 .statusCode(200)
-                // static import для JsonSchemaValidator.matchesJsonSchemaInClasspath
-                .body(matchesJsonSchemaInClasspath("accounts.schema.json"))
+                .body("data", equalTo("some data"))
         ;
     }
-
     @Test
-    void currencyRubTest() {
+    void postTest(){
         given()
-                .baseUri("http://localhost:9999/api/v1")
+                .baseUri("https://postman-echo.com")
+                .contentType("text/plain; charset=UTF-8")
+                .body("some data")
                 .when()
-                .get("/demo/accounts")
+                .post("/post")
                 .then()
-                .body("[0].currency", equalTo("RUB"))
-                .body("[2].currency", equalTo("RUB"));
-    }
-
-    @Test
-    void currencyUsdTest() {
-        given()
-                .baseUri("http://localhost:9999/api/v1")
-                .when()
-                .get("/demo/accounts")
-                .then()
-                .body("[1].currency", equalTo("USD"))
+                .statusCode(200)
+                .body("data", equalTo("some data"))
         ;
-    }
-
-    @Test
-    void typeTest() {
-        given()
-                .baseUri("http://localhost:9999/api/v1")
-                .when()
-                .get("/demo/accounts")
-                .then()
-                .contentType(ContentType.JSON);
     }
 
 
