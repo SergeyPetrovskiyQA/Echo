@@ -24,6 +24,7 @@ class PostmanTest {
     }
     @Test
     void postTest(){
+
         given()
                 .baseUri("https://postman-echo.com")
                 .contentType("text/plain; charset=UTF-8")
