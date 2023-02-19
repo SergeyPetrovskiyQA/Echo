@@ -28,12 +28,12 @@ class PostmanTest {
         given()
                 .baseUri("https://postman-echo.com")
                 .contentType("text/plain; charset=UTF-8")
-                .body("some data")
+                .body("Привет Нетология")
                 .when()
                 .post("/post")
                 .then()
                 .statusCode(200)
-                .body("data", equalTo("some data"))
+                .body("data", equalTo("Привет Нетология"))
         ;
     }
 
